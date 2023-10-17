@@ -29,9 +29,10 @@ class Curl {
      * send HTTP POST using JSON
      * @param string $url
      * @param array|object|string $data
+     * @param float $timeout
      * @return Response
      */
-    public function postJson($url,$data)
+    public function postJson($url,$data, $content_type='application/json', ?float $timeout=null)
     {
         $data1 = $data ;
         if(is_array($data) or is_object($data)){
@@ -45,11 +46,11 @@ class Curl {
             CURLOPT_URL => $url ,
             CURLOPT_HEADER =>  true,
             CURLOPT_HTTPHEADER => [
-                'content-type: application/json',
+                "content-type: $content_type",
             ] ,
         ];
 
-        return $this->genericCall($ch, $data, $url, $curl_options0);
+        return $this->genericCall($ch, $data, $url, $curl_options0, $timeout);
     }
 
     /**
@@ -82,9 +83,10 @@ class Curl {
      * send HTTP Post using XML format
      * @param string $url
      * @param string $data
+     * @param float $timeout
      * @return Response
      */
-    public function postXml($url,$data, $content_type = 'application/xml')
+    public function postXml($url,$data, $content_type = 'application/xml', ?float $timeout=null)
     {
         $ch = curl_init();
         $curl_options0 = [
@@ -98,21 +100,24 @@ class Curl {
             ] ,
         ];
 
-        return $this->genericCall($ch, $data, $url, $curl_options0);
+        return $this->genericCall($ch, $data, $url, $curl_options0, $timeout);
     }
 
     /**
      * call curl exec and creates response object
      * 
-     * @param  resource|\CurlHandle $ch
-     * @param  mixed $data
-     * @param  string $url
-     * @param  array $curl_options
+     * @param resource|\CurlHandle $ch
+     * @param mixed $data
+     * @param string $url
+     * @param array $curl_options
+     * @param float $timeout
      * @return Response
      */
-    private function genericCall($ch, $data, string $url, array $curl_options){
+    private function genericCall($ch, $data, string $url, array $curl_options, float $timeout=null){
         $curl_options = array_merge_index($curl_options ,$this->curl_options) ;
-
+        if(! empty($timeout)){
+            $curl_options[CURLOPT_TIMEOUT] = $timeout ;
+        }
         curl_setopt_array($ch,$curl_options);
 
         $raw_response = curl_exec($ch);
@@ -137,9 +142,14 @@ class Curl {
      * Send HTTP Raw POST
      * @param string $url
      * @param string|array|object $data
+     * @param float $timeout
      * @return Response
      */
-    public function postRaw($url,$data, $content_type = 'application/x-www-form-urlencoded')
+    public function postRaw(
+        $url, 
+        $data, 
+        $content_type = 'application/x-www-form-urlencoded', 
+        ?float $timeout=null)
     {
         if(is_array($data) or is_object($data)){
             $data1 = http_build_query($data);
@@ -159,16 +169,17 @@ class Curl {
             ] ,
         ];
 
-        return $this->genericCall($ch, $data, $url, $curl_options0);
+        return $this->genericCall($ch, $data, $url, $curl_options0, $timeout);
     }
 
     /**
      * make and HTTP get request JSON by default
      * @param string $url
      * @param string|object|array $data
+     * @param float $timeout
      * @return Response
      */
-    public function get($url,$data=null, $content_type='text/plain')
+    public function get($url,$data=null, $content_type='text/plain', ?float $timeout=null)
     {
         $data1 = $data ;
         if(is_array($data) or is_object($data)){
@@ -178,11 +189,6 @@ class Curl {
         $headers = [
             "content-type: $content_type",
         ];
-
-        if(isset($this->curl_options[CURLOPT_HTTPHEADER])){
-            $headers = array_merge($headers ,$this->curl_options[CURLOPT_HTTPHEADER]) ;
-            unset($this->curl_options[CURLOPT_HTTPHEADER]) ;
-        }
 
         if ( ! empty($data1) ){
             $url1 = $url . '?' . $data1 ;
@@ -197,6 +203,6 @@ class Curl {
             CURLOPT_HTTPHEADER => $headers ,
         ];
 
-        return $this->genericCall($ch, $data, $url1, $curl_options0);
+        return $this->genericCall($ch, $data, $url1, $curl_options0, $timeout);
     }
 }

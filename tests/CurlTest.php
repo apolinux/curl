@@ -138,4 +138,16 @@ class CurlTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($request, $response->request) ;
         $this->assertTrue(is_object($response->response->toJson())) ;
     }
+
+    public function testGetTimeout(){
+        $curl = new Curl;
+
+        $url ='http://mail.google.com:8081' ;
+        $request = '';
+        $response = $curl->get($url,$request,'text/plain',5) ;
+
+        $this->assertEquals(28 , $response->curl->code) ;
+        $this->assertEquals('Timeout was reached' , $response->curl->message) ;
+        //$this->assertEquals(5, (int)$response->duration);
+    }
 }
