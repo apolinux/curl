@@ -1,0 +1,25 @@
+{
+    "name": "apolinux/curl",
+    "authors": [
+        {
+            "name": "Carlos Arce",
+            "email": "apolinux@gmail.com"
+        }
+    ],
+    "description": "simple curl library",
+    "type": "library",
+    "autoload": {
+        "psr-4": { "Apolinux\\": "src/" },
+        "files" : [
+            "src/helper.php"
+        ]
+    },
+    "license": "MIT",
+    "require-dev": {
+        "phpunit/phpunit":"9.*"
+    },
+    
+    "require": {
+        "php" : ">=7.4"
+    }
+}
