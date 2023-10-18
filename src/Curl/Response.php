@@ -57,7 +57,7 @@ class Response{
      * @param mixed         $request 
      * @param string        $response
      * @param array         $header_list
-     * @param CurlResponse  $curl
+     * @param DetailResponse  $curl
      * @param string        $full_url
      * @return void
      */
@@ -65,7 +65,7 @@ class Response{
       $request, 
       string $response, 
       array $header_list, 
-      CurlResponse $curl, 
+      DetailResponse $curl, 
       string $full_url) {
         $this->request      = $request ;
         $this->response     = new AppResponse($response) ;

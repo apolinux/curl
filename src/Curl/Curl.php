@@ -130,7 +130,7 @@ class Curl {
             $data, 
             $response, 
             $header_list, 
-            new CurlResponse($ch),
+            new DetailResponse($ch),
             $url
         );
         

@@ -3,11 +3,11 @@
 namespace Apolinux\Curl;
 
 /**
- * Description of CurlResult
+ * Curl information
  *
  * @author drake
  */
-class CurlResponse {
+class DetailResponse {
     /**
      * error code
      * @var int
