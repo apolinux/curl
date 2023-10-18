@@ -1,6 +1,6 @@
 <?php
 
-namespace Apolinux;
+namespace Apolinux\Curl;
 
 /**
  * Curl methods to make post/get request sending plain, json, xml or other doc types

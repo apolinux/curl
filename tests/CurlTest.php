@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase ;
-use Apolinux\Curl;
+use Apolinux\Curl\Curl;
 
 class CurlTest extends PHPUnit_Framework_TestCase {
 

@@ -1,6 +1,6 @@
 <?php 
 
-namespace Apolinux ;
+namespace Apolinux\Curl;
 
 class Response{
   /**
