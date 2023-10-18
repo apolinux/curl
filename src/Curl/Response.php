@@ -23,7 +23,7 @@ class Response{
 
     /**
      * Curl response
-     * @var CurlResponse
+     * @var DetailResponse
      */
     public $curl ;
 
@@ -54,11 +54,11 @@ class Response{
     /**
      * __construct
      *
-     * @param mixed         $request 
-     * @param string        $response
-     * @param array         $header_list
+     * @param mixed           $request 
+     * @param string          $response
+     * @param array           $header_list
      * @param DetailResponse  $curl
-     * @param string        $full_url
+     * @param string          $full_url
      * @return void
      */
     public function __construct(

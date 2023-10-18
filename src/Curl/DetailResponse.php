@@ -33,11 +33,19 @@ class DetailResponse {
      */
     public $response ;
 
+    /**
+     * class construct 
+     * 
+     * @param \CurlHandle|handle $curl curl resource 
+     * @param string $response response of curl_exec
+     */
     public function __construct(
-        $curl
+        $curl ,
+        string $response
         ) {
-        $this->code  = curl_errno($curl) ;
-        $this->message = curl_strerror($this->code) ;
-        $this->info = curl_getinfo($curl);
+        $this->code     = curl_errno($curl) ;
+        $this->message  = curl_strerror($this->code) ;
+        $this->info     = curl_getinfo($curl);
+        $this->response = $response ;
     }
 }
